@@ -1,0 +1,12 @@
+
+/* 蓝色主题主框架样式定义*/
+body{font-family:Arial,"宋体";margin:0px; padding:0px;background-color:#FFFFFF;overflow:auto;}
+.group{ width:100%;clear:both;}
+#top01{background:url(../images/topbg_01.gif) top repeat-x; height:50px;}
+.top01bg{background:url(../images/topbg_02.gif) top right no-repeat;height:50px;}
+.logo { background:url(../images/logo_01.gif) top no-repeat;height:50px;width:482px;float:left;}
+.top_right{width:400px;float:right;padding:25px 20px 0 0;height:16px;line-height:16px;}
+
+#copyright{ background:url(../images/footer_01.gif) repeat-x;text-align:center; padding-top:10px; height:30px; color:#003466;}
+
+

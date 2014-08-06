@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tool="http://www.springframework.org/schema/tool" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/jee
+     http://www.springframework.org/schema/jee/spring-jee.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/util
+     http://www.springframework.org/schema/util/spring-util.xsd
+     http://www.springframework.org/schema/tool
+     http://www.springframework.org/schema/tool/spring-tool.xsd"
+	default-lazy-init="true" default-autowire="byName">
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		p:driverClass="${jdbc.driver}" p:jdbcUrl="${jdbc.url}" p:user="${jdbc.username}"
+		p:password="${jdbc.password}" p:acquireIncrement="${c3p0.acquireIncrement}"
+		p:initialPoolSize="${c3p0.initialPoolSize}" p:minPoolSize="${c3p0.minPoolSize}"
+		p:maxPoolSize="${c3p0.maxPoolSize}" p:maxIdleTime="${c3p0.maxIdleTime}"
+		p:idleConnectionTestPeriod="${c3p0.idleConnectionTestPeriod}"
+		p:maxStatements="${c3p0.maxStatements}" p:numHelperThreads="${c3p0.numHelperThreads}"
+		p:checkoutTimeout="${c3p0.checkoutTimeout}" destroy-method="close" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource" p:mappingDirectoryLocations="classpath:/com/ai/free/model">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- transactionManager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:dataSource-ref="dataSource" p:sessionFactory-ref="sessionFactory">
+	</bean>
+
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor"
+		p:transactionManager-ref="transactionManager">
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="select*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="sync*">PROPAGATION_REQUIRED</prop>
+				<prop key="finish*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED,-java.lang.Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

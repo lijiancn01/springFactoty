@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	
+	<constant name="struts.devMode" value="false"/>
+
+	<package name="commonPkg" namespace="/lijian" extends="struts-default">
+		<action name="queryUser" class="com.ai.free.action.TUserAction"
+			method="queryUser">
+			<result name="success">/TUserList.jsp</result>
+		</action>
+	</package>
+
+	<package name="jsonPkg" namespace="/user" extends="json-default">
+		<action name="update" method="update" class="com.ai.free.action.UpdateAction">
+			<result name="json" type="json"></result>
+		</action>
+		
+		<action name="uilist_*" class="com.ai.free.action.EasyAction" method="{1}">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					^rows\[\d+\]\.\w+,total
+				</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="tree_*" class="com.ai.free.action.EasyAction" method="{1}">
+			<result type="json">
+				<param name="root">treeArray</param>
+			</result>
+		</action>
+		
+		<action name="map_*" class="com.ai.free.action.EasyAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+		
+	</package>
+
+</struts> 

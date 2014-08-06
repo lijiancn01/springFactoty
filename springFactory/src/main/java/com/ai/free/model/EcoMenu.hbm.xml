@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-7-30 18:19:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ai.free.model.EcoMenu" table="ECO_MENU">
+        <id name="menuid" type="long">
+            <column name="MENUID" precision="12" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">ECO_MENU$seq</param>
+            </generator>
+        </id>
+        <property name="menuname" type="string">
+            <column name="MENUNAME" length="48" not-null="true" />
+        </property>
+        <property name="notes" type="string">
+            <column name="NOTES" length="48" not-null="true" />
+        </property>
+        <property name="menuurl" type="string">
+            <column name="MENUURL" length="2000" />
+        </property>
+        <property name="parentmenuid" type="long">
+            <column name="PARENTMENUID" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="sortid" type="java.lang.Short">
+            <column name="SORTID" precision="4" scale="0" />
+        </property>
+        <property name="isused" type="boolean">
+            <column name="ISUSED" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="donedate" type="java.util.Date">
+            <column name="DONEDATE" length="7" />
+        </property>
+        <property name="state" type="string">
+            <column name="STATE" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
