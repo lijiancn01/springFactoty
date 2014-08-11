@@ -20,7 +20,7 @@ public class TestUser {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		IBaseDAO dao = ctx.getBean(BaseDAOImpl.class);
 		List<TUser> userlist = dao.find("from TUser");
 		System.out.println(userlist.size());

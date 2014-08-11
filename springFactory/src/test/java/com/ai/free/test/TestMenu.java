@@ -25,7 +25,7 @@ public class TestMenu {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		parentMenuMap = new HashMap<String, EcoMenu>();
 		IBaseDAO dao = ctx.getBean(BaseDAOImpl.class);
 		File file = new File("src/main/webapp/jquery-easyui-1.3.2/demo/");
@@ -44,7 +44,7 @@ public class TestMenu {
 		createMenuByList(file);
 	}
 	
-	private void createMenuByList(File f){
+	private void createMenuByList(File f) throws Exception{
 		IBaseDAO dao = ctx.getBean(BaseDAOImpl.class);
 		if(f.isDirectory()){
 			EcoMenu m = new EcoMenu();

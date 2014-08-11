@@ -37,5 +37,5 @@ public interface ITUserSV {
 	
 	public <T> List<T> queryByCriteria(DetachedCriteria detachedCriteria, int firstResult, int maxResults) throws Exception;
 	
-	public String getTUserId();
+	public String getTUserId() throws Exception;
 }

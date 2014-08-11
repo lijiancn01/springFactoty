@@ -6,9 +6,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.ai.free.dao.impl.BaseDAOImpl;
 import com.ai.free.dao.interfaces.IBaseDAO;
-import com.ai.free.service.impl.TUserSVImpl;
 import com.ai.free.service.interfaces.ITUserSV;
 
 public class ServiceFactory {
@@ -19,11 +17,11 @@ public class ServiceFactory {
 	}
 	
 	public static IBaseDAO getBaseDAO(){
-		return getBean(BaseDAOImpl.class);
+		return getBean(IBaseDAO.class);
 	}
 	
 	public static ITUserSV getTUserSV(){
-		return getBean(TUserSVImpl.class);
+		return getBean(ITUserSV.class);
 	}
 	
 }

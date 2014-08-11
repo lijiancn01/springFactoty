@@ -29,18 +29,19 @@
 			<div>
 				<label for="add_userName">姓名:</label>
 				<input class="easyui-validatebox" type="hidden" name="add_uuid" data-options="required:true" />
-				<input class="easyui-validatebox" type="text" name="add_userName" data-options="required:true" value="李剑" />
+				<input class="easyui-validatebox" type="text" name="add_userName" data-options="required:true" value="" />
 			</div>
 			<div>
 				<label for="add_userPwd">密码:</label>
-				<input class="easyui-validatebox" type="text" name="add_userPwd" data-options="required:true" value="12345678" />
+				<input class="easyui-validatebox" type="text" name="add_userPwd" data-options="required:true" value="" />
 			</div>
 			<div>
 				<label for="add_nickName">账号:</label>
-				<input class="easyui-validatebox" type="text" name="add_nickName" data-options="required:true" value="EVC012" />
+				<input class="easyui-validatebox" type="text" name="add_nickName" data-options="required:true" value="" />
 			</div>
 			<div>
 				<a id="addCommitbtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">提交</a>
+				<input type="reset" id="addResetbtn" value="重置" />
 			</div>
 		</form>
 	</div>
@@ -71,15 +72,6 @@
 			columns : [ [ {
 				title : '基本信息',
 				colspan : 4
-			}, {
-				field : 'opt',
-				title : '操作',
-				width : 100,
-				align : 'center',
-				rowspan : 2,
-				formatter : function(value,row,index) {
-					
-				}
 			} ], [ {
 				field : 'username',
 				title : 'username',
@@ -107,7 +99,7 @@
 				$("input[name=add_nickName]").val(rowData.nickname);
 				$("input[name=add_uuid]").val(rowData.initid);
 				$('#win').window('open');  // close a window
-			    $('#addCommitbtn').bind('click', function(){
+			    $('#addCommitbtn').unbind("click").bind('click', function(){
 			    	updateUser();
 			    });
 			},
@@ -116,6 +108,10 @@
 				iconCls : 'icon-add',
 				handler : function() {
 					$('#win').window('open');  // open a window
+					$('#addResetbtn').click();
+				    $('#addCommitbtn').unbind("click").bind('click', function(){
+				    	addUser();
+				    });
 				}
 			}, '-', {
 				text : '保存',
@@ -162,9 +158,6 @@
 	}
 	
 	function addUser(){
-	    $('#addCommitbtn').bind('click', function(){
-	    	addUser();
-	    });
 		var data = '&userName=' + $("input[name=add_userName]").val();
 		data += '&password=' + $("input[name=add_userPwd]").val();
 		data += '&nickName=' + $("input[name=add_nickName]").val();

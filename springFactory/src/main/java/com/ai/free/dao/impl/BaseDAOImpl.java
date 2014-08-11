@@ -8,7 +8,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -17,37 +16,37 @@ import com.ai.free.db.Page;
 import com.ai.free.util.EcLogger;
 
 public class BaseDAOImpl extends HibernateDaoSupport implements IBaseDAO {
-	public <T> T create(T t) {
+	public <T> T create(T t) throws Exception{
 		getHibernateTemplate().save(t);
 		return t;
 	}
 	
-	public <T> T update(T t){
+	public <T> T update(T t) throws Exception{
 		getHibernateTemplate().update(t);
 		return t;
 	}
 	
-	public <T, PK extends Serializable> void deleteByID(Class<T> type, PK id) {
+	public <T, PK extends Serializable> void deleteByID(Class<T> type, PK id) throws Exception {
 		T t = (T) getHibernateTemplate().get(type, id);
 		getHibernateTemplate().delete(t);
 	}
 	
-	public <T, PK extends Serializable> T findByID(Class<T> type, PK id) {
+	public <T, PK extends Serializable> T findByID(Class<T> type, PK id) throws Exception {
 		return (T) getHibernateTemplate().get(type, id);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> List<T> find(String queryString) {
+	public <T> List<T> find(String queryString) throws Exception{
 		return getHibernateTemplate().find(queryString);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> List<T> find(String queryString, Object... value) {
+	public <T> List<T> find(String queryString, Object... value) throws Exception{
 		return getHibernateTemplate().find(queryString, value);
 	}
 	
 	@SuppressWarnings({ "deprecation", "rawtypes" })
-	public List findByPageFree(final String hql, final int offset, final int pageSize, final Object... values) {
+	public List findByPageFree(final String hql, final int offset, final int pageSize, final Object... values) throws Exception{
 		List list = getHibernateTemplate().executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
@@ -65,16 +64,16 @@ public class BaseDAOImpl extends HibernateDaoSupport implements IBaseDAO {
 		return list;
 	}
 	
-	public void findByPageFree(final Page page, final String hql){
+	public void findByPageFree(final Page page, final String hql) throws Exception{
 		findByPageFree(page, hql, (Object[])null);
 	}
 	
-	public void findByPageFree(final Page page, final String hql, final Object value){
+	public void findByPageFree(final Page page, final String hql, final Object value) throws Exception{
 		findByPageFree(page, hql, new Object[]{value});
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void findByPageFree(final Page page, final String hql, final Object... values) {
+	public void findByPageFree(final Page page, final String hql, final Object... values) throws Exception{
 		getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
@@ -94,7 +93,7 @@ public class BaseDAOImpl extends HibernateDaoSupport implements IBaseDAO {
 		});
 	}
 
-	public <T> void executeUpdate(final String hql) throws DataAccessException {
+	public <T> void executeUpdate(final String hql) throws Exception{
 		getHibernateTemplate().executeWithNativeSession(new HibernateCallback<T>() {
 			public T doInHibernate(Session session) throws HibernateException {
 				EcLogger.info(hql);

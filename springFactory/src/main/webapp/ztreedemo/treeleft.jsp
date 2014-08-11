@@ -12,6 +12,13 @@ var zTree;
 var demoIframe;
 
 var setting = {
+	async: {
+		enable: true,
+		url:"../asyncData/getNodes.php",
+		autoParam:["id", "name=n", "level=lv"],
+		otherParam:{"otherParam":"zTreeAsyncTest"},
+		dataFilter: null
+	},
 	view: {
 		dblClickExpand: false,
 		showLine: true,
@@ -52,6 +59,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
+	<ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
 </body>
 </html>

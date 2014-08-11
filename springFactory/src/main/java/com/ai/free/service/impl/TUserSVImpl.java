@@ -1,5 +1,6 @@
 package com.ai.free.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -8,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import com.ai.free.dao.interfaces.IBaseDAO;
 import com.ai.free.db.Page;
 import com.ai.free.db.ServiceFactory;
+import com.ai.free.model.AnthorInfo;
 import com.ai.free.model.EcoMenu;
 import com.ai.free.model.TUser;
 import com.ai.free.service.interfaces.ITUserSV;
@@ -46,9 +48,20 @@ public class TUserSVImpl implements ITUserSV {
 	}
 	
 	public int addUser(TUser user) throws Exception{
-		IBaseDAO dao = ServiceFactory.getBaseDAO();
-		TUser t = dao.create(user);
-		return t == null?0:1;
+		int result = 1;
+		try {
+			IBaseDAO dao = ServiceFactory.getBaseDAO();
+			dao.create(user);
+			AnthorInfo auth = new AnthorInfo();
+			auth.setAuthorname(user.getNickname());
+			auth.setRealname(user.getUsername());
+			auth.setBirthday(new Date());
+			dao.create(auth);
+		} catch (Exception e) {
+			result = 0;
+			throw new Exception(e.getMessage());
+		}
+		return result;
 	}
 	
 	public int delUser(String inits) throws Exception{
@@ -74,7 +87,7 @@ public class TUserSVImpl implements ITUserSV {
 		return dao.findByCriteria(detachedCriteria, firstResult, maxResults);
 	}
 	
-	public String getTUserId(){
+	public String getTUserId() throws Exception{
 		IBaseDAO dao = ServiceFactory.getBaseDAO();
 		TUser user = (TUser)dao.find("select T_USER$seq.nextval as initid from dual").get(0);
 		return "S" + user.getInitid();
