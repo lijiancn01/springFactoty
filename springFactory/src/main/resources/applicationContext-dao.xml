@@ -23,5 +23,5 @@
 	<bean id="baseDao" class="com.ai.free.dao.impl.BaseDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-
+	
 </beans>

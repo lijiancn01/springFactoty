@@ -15,7 +15,7 @@ var setting = {
 	async: {
 		enable: true,
 		url:"../asyncData/getNodes.php",
-		autoParam:["id", "name=n", "level=lv"],
+		autoParam:["id", "name", "level"],
 		otherParam:{"otherParam":"zTreeAsyncTest"},
 		dataFilter: null
 	},
