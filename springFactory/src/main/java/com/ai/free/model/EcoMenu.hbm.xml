@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2014-7-30 18:19:42 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.ai.free.model.EcoMenu" table="ECO_MENU">
+    <class name="com.ai.free.model.EcoMenu" table="ECO_MENU" dynamic-insert="true" dynamic-update="true">
         <id name="menuid" type="long">
             <column name="MENUID" precision="12" scale="0" />
             <generator class="sequence">
@@ -29,7 +29,7 @@
             <column name="ISUSED" precision="1" scale="0" not-null="true" />
         </property>
         <property name="donedate" type="java.util.Date">
-            <column name="DONEDATE" length="7" />
+            <column name="DONEDATE" length="7" not-null="false" />
         </property>
         <property name="state" type="string">
             <column name="STATE" length="20" />

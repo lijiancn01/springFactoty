@@ -1,6 +1,8 @@
 package com.ai.free.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +13,6 @@ public class HttpRequestUtil {
 		String value = request.getParameter(paramName);
 		if(StringUtils.isNotEmpty(value)){
 			return new String(value.getBytes("ISO-8859-1"), "GBK");
-			
 		}
 		return defaultResult;
 	}
@@ -47,7 +48,11 @@ public class HttpRequestUtil {
 	public static long longValue(String value, long defaultResult){
 		if(StringUtils.isEmpty(value)){
 			return defaultResult;
-		}else if(StringUtils.isNumeric(value)){
+		}
+		String regEx = "^[-]?[1-9][0-9]*$";
+		Pattern pat = Pattern.compile(regEx);
+		Matcher mat = pat.matcher(value);
+		if(mat.find()){
 			return Long.parseLong(value);
 		}
 		return defaultResult;
@@ -60,7 +65,11 @@ public class HttpRequestUtil {
 	public static int intValue(String value, int defaultResult){
 		if(StringUtils.isEmpty(value)){
 			return defaultResult;
-		}else if(StringUtils.isNumeric(value)){
+		}
+		String regEx = "^[-]?[1-9][0-9]*$";
+		Pattern pat = Pattern.compile(regEx);
+		Matcher mat = pat.matcher(value);
+		if(mat.find()){
 			return Integer.parseInt(value);
 		}
 		return defaultResult;

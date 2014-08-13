@@ -22,19 +22,30 @@ public class EcoMenu implements java.io.Serializable {
 
 	public EcoMenu() {
 	}
-
-	public EcoMenu(long menuid, String menuname, String notes,
-			long parentmenuid, boolean isused) {
-		this.menuid = menuid;
+	public EcoMenu(String menuname, long parentmenuid) {
+		super();
 		this.menuname = menuname;
-		this.notes = notes;
 		this.parentmenuid = parentmenuid;
-		this.isused = isused;
+		this.setIsused(true);
+		this.setState("closed");
+		this.setNotes("有子菜单");
+	}
+	
+	public EcoMenu(String menuname, String menuurl,
+			long parentmenuid) {
+		super();
+		this.menuname = menuname;
+		this.menuurl = menuurl;
+		this.parentmenuid = parentmenuid;
+		this.setIsused(true);
+		this.setState("open");
+		this.setNotes("无子菜单");
 	}
 
 	public EcoMenu(long menuid, String menuname, String notes, String menuurl,
 			long parentmenuid, Short sortid, boolean isused, Date donedate,
 			String state) {
+		super();
 		this.menuid = menuid;
 		this.menuname = menuname;
 		this.notes = notes;
