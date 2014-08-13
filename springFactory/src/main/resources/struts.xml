@@ -32,6 +32,12 @@
 			</result>
 		</action>
 		
+		<action name="zt_*" class="com.ai.free.action.ZtreeAction" method="{1}">
+			<result type="json">
+				<param name="root">treeArray</param>
+			</result>
+		</action>
+		
 		<action name="map_*" class="com.ai.free.action.EasyAction" method="{1}">
 			<result name="success" type="json">
 				<param name="root">resultMap</param>
