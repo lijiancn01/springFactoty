@@ -26,6 +26,12 @@ var setting = {
 	callback: {
 		beforeClick: function(treeId, treeNode) {
 			return true;
+		},
+		onClick:function(event, treeId, treeNode){
+			if(treeNode.file == null || treeNode.file == ''){
+				return;
+			}
+			parent.addTab(treeNode);
 		}
 	}
 };
